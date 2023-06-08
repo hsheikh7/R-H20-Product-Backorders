@@ -1,7 +1,7 @@
 
 # Step 1: Load the training & test dataset
 
-data_path = r("C:\Users\Hassan\Documents\Projects_Python\R-Projects\4-Product-Backorders\data\product_backorders.csv")
+data_path = ("data/product_backorders.csv")
 
 train_data <- read.csv(data_path)
 train_data
