@@ -2,15 +2,13 @@
 
 library(tidyverse)
 library(tidyquant)
+library(caret)
 library(h2o)
 
 # Step 1: Load the training & test dataset
 # Load the dataset
-
 dataset <- read.csv("data/product_backorders.csv") 
 glimpse(dataset)
-
-dataset_h2o <- h2o.importFile("data/product_backorders.csv")
 
 # Set the seed for reproducibility
 set.seed(123)
@@ -35,11 +33,14 @@ predictor_vars <- setdiff(colnames(train_data), response_var)
 h2o.init()  
 h2o.no_progress()  # Turn off progress bars for notebook readability
 
+
 train_h2o <- as.h2o(train_data)  # Convert the training data to H2O frame
 test_h2o <- as.h2o(test_data)    # Convert the test data to H2O frame
 
 y = response_var
 x = setdiff(names(train_h2o), response_var)
+
+dataset_h2o <- h2o.importFile("data/product_backorders.csv")
 
 aml <- h2o.automl(y = y, x = x,
                   training_frame = dataset_h2o,
